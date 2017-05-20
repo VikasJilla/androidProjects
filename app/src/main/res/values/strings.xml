@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BottomTabBar</string>
+    <string-array name="drawerList">
+        <item>Payment</item>
+        <item>My Bag</item>
+    </string-array>
+</resources>
