@@ -1,6 +1,8 @@
 package com.example.vikasjilla.materialtest;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
@@ -15,8 +17,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+
+        NavDrawerFrag frag = (NavDrawerFrag) getSupportFragmentManager().findFragmentById(R.id.fragment_nav_drawer_frag);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        frag.setUp(toolbar,drawerLayout);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
