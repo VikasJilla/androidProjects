@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavDrawerFrag frag = (NavDrawerFrag) getSupportFragmentManager().findFragmentById(R.id.fragment_nav_drawer_frag);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        frag.setUp(toolbar,drawerLayout);
+        frag.setUp(R.id.fragment_nav_drawer_frag,toolbar,drawerLayout);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

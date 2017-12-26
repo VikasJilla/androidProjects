@@ -1,6 +1,8 @@
 package com.example.vikasjilla.materialtest;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,51 +19,34 @@ import android.view.ViewGroup;
  * Activities that contain this fragment must implement the
  * {@link NavDrawerFrag.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NavDrawerFrag#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class NavDrawerFrag extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    Toolbar mToolBar;
-    DrawerLayout mDrawerLayout;
+    public static final String PREF_FILE_NAME = "PrefStore";
+    public static final String PREF_USERLEARNED_DRAWER_KEY = "UserLearnedDrawer";
 
+    private Toolbar mToolBar;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mtoggleListener;
+
+    private boolean misUserReadDrawer;
+    private boolean misComingFromSavedState;
     private OnFragmentInteractionListener mListener;
+
+    public View mcontainerView;
 
     public NavDrawerFrag() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NavDrawerFrag.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NavDrawerFrag newInstance(String param1, String param2) {
-        NavDrawerFrag fragment = new NavDrawerFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        misUserReadDrawer = Boolean.valueOf(readFromPrefs(getActivity(), PREF_USERLEARNED_DRAWER_KEY,"false"));
+        if(savedInstanceState != null){
+            misComingFromSavedState = true;
         }
     }
 
@@ -72,12 +57,6 @@ public class NavDrawerFrag extends Fragment {
         return inflater.inflate(R.layout.fragment_nav_drawer, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -88,26 +67,53 @@ public class NavDrawerFrag extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    public void setUp(Toolbar toolbar, DrawerLayout drawerLayout) {
+    public void setUp(int fragmentID,Toolbar toolbar, DrawerLayout drawerLayout) {
+        mcontainerView = getActivity().findViewById(fragmentID);
         mToolBar = toolbar;
         mDrawerLayout = drawerLayout;
-        ActionBarDrawerToggle toggleListener = new ActionBarDrawerToggle(getActivity(),drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+        mtoggleListener = new ActionBarDrawerToggle(getActivity(),drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close){
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                if(!misUserReadDrawer) {
+                    misUserReadDrawer = true;
+                    saveToSharedPreference(getActivity(), PREF_USERLEARNED_DRAWER_KEY,misUserReadDrawer+"");
+                }
+                getActivity().invalidateOptionsMenu();//to refresh toolbar
             }
 
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerClosed(View drawerView)
+            {
                 super.onDrawerClosed(drawerView);
+                getActivity().invalidateOptionsMenu();//to refresh toolbar
             }
         };
-        mDrawerLayout.addDrawerListener(toggleListener);
+        if(!misUserReadDrawer || !misComingFromSavedState){
+            mDrawerLayout.openDrawer(mcontainerView);
+        }
+        mDrawerLayout.addDrawerListener(mtoggleListener);
+        mDrawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mtoggleListener.syncState();
+            }
+        });
     }
 
+    void saveToSharedPreference(Context context,String preferenceKey,String preferenceValue){
+        SharedPreferences preferences = context.getSharedPreferences(PREF_FILE_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(preferenceKey,preferenceValue);
+        editor.apply();//not reliable -- used for returning fastly from method
+    }
+
+    String readFromPrefs(Context context,String prefKey,String defaultValue){
+        SharedPreferences preferences = context.getSharedPreferences(PREF_FILE_NAME,Context.MODE_PRIVATE);
+        return preferences.getString(prefKey,defaultValue);
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
