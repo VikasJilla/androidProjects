@@ -12,9 +12,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.vikasjilla.materialtest.MainActivity">
 
-    <include
-        android:id="@+id/toolBar"
-        layout="@layout/app_bar"/>
+
 </RelativeLayout>
     <fragment
         android:id="@+id/fragment_nav_drawer_frag"

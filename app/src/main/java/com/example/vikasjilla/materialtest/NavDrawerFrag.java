@@ -69,7 +69,7 @@ public class NavDrawerFrag extends Fragment {
         super.onDetach();
     }
 
-    public void setUp(int fragmentID,Toolbar toolbar, DrawerLayout drawerLayout) {
+    public void setUp(int fragmentID, final Toolbar toolbar, DrawerLayout drawerLayout) {
         mcontainerView = getActivity().findViewById(fragmentID);
         mToolBar = toolbar;
         mDrawerLayout = drawerLayout;
@@ -89,6 +89,11 @@ public class NavDrawerFrag extends Fragment {
             {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();//to refresh toolbar
+            }
+            @Override
+            public void onDrawerSlide(View drawerView,float slideOffset){//slideoffset-->0 to 1
+                float alpha = (float)( 1-slideOffset < 0.4?0.4:1-slideOffset);
+                toolbar.setAlpha(alpha);
             }
         };
         if(!misUserReadDrawer || !misComingFromSavedState){
