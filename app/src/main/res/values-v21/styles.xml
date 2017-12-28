@@ -4,9 +4,11 @@
     <style name="AppTheme" parent="BaseTheme">
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
     <style name="AppBarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:colorSecondary">#000000</item>
+
     </style>
 </resources>

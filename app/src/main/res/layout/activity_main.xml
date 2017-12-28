@@ -10,8 +10,11 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.vikasjilla.materialtest.MainActivity">
-
+    <include
+        android:id="@+id/toolBar"
+        layout="@layout/app_bar"/>
 
 </RelativeLayout>
     <fragment
