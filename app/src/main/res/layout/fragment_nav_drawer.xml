@@ -2,15 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#222"
+    android:background="@color/bannerImageBg"
+
     tools:context="com.example.vikasjilla.materialtest.NavDrawerFrag">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
+        android:id="@+id/headerImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginTop="@dimen/statusBarheight"
         android:scaleType="fitXY"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/banner"/>
+        android:src="@drawable/banner" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerImage"
+        />
 </RelativeLayout>

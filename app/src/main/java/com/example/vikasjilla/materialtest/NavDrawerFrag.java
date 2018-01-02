@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class NavDrawerFrag extends Fragment {
     private Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mtoggleListener;
+    private RecyclerView mRecyclerView;
 
     private boolean misUserReadDrawer;
     private boolean misComingFromSavedState;
@@ -54,7 +56,9 @@ public class NavDrawerFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nav_drawer, container, false);
+        View view = inflater.inflate(R.layout.fragment_nav_drawer, container, false);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        return view;
     }
 
 
