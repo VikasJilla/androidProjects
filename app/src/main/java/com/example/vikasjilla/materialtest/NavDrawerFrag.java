@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -30,6 +31,8 @@ public class NavDrawerFrag extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mtoggleListener;
     private RecyclerView mRecyclerView;
+
+    private RecyclerView.Adapter mAdapter;
 
     private boolean misUserReadDrawer;
     private boolean misComingFromSavedState;
@@ -66,8 +69,15 @@ public class NavDrawerFrag extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-    }
 
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        mAdapter = new RecycleAdapt(getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
     @Override
     public void onDetach() {
         super.onDetach();
