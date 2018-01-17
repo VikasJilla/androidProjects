@@ -1,6 +1,7 @@
 package com.example.vikasjilla.materialtest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
@@ -22,7 +23,7 @@ import android.view.ViewGroup;
  * {@link NavDrawerFrag.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class NavDrawerFrag extends Fragment {
+public class NavDrawerFrag extends Fragment implements RecycleAdapt.ClickListener{
 
     public static final String PREF_FILE_NAME = "PrefStore";
     public static final String PREF_USERLEARNED_DRAWER_KEY = "UserLearnedDrawer";
@@ -32,7 +33,7 @@ public class NavDrawerFrag extends Fragment {
     private ActionBarDrawerToggle mtoggleListener;
     private RecyclerView mRecyclerView;
 
-    private RecyclerView.Adapter mAdapter;
+    private RecycleAdapt mAdapter;
 
     private boolean misUserReadDrawer;
     private boolean misComingFromSavedState;
@@ -75,6 +76,7 @@ public class NavDrawerFrag extends Fragment {
     public void onResume(){
         super.onResume();
         mAdapter = new RecycleAdapt(getActivity());
+        mAdapter.setListener(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -133,6 +135,12 @@ public class NavDrawerFrag extends Fragment {
         SharedPreferences preferences = context.getSharedPreferences(PREF_FILE_NAME,Context.MODE_PRIVATE);
         return preferences.getString(prefKey,defaultValue);
     }
+
+    @Override
+    public void itemClicked(View v, int position) {
+        startActivity(new Intent(getActivity(),ActivityNextBack.class));
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
