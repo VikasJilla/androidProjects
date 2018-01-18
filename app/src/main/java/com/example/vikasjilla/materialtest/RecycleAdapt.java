@@ -52,23 +52,16 @@ public class RecycleAdapt extends RecyclerView.Adapter<RecycleAdapt.MyViewHolder
     public interface ClickListener{
          void itemClicked(View v,int position);
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnTouchListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener{
         ImageView mImageView;
         TextView mTextView;
         public MyViewHolder(View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_recycle_item);
             mTextView = itemView.findViewById(R.id.textView_recycle_item);
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(mContext,""+getPosition(),Toast.LENGTH_SHORT).show();
-            if(mClickListener != null){
-                mClickListener.itemClicked(view,getPosition());
-            }
-        }
+
 
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {

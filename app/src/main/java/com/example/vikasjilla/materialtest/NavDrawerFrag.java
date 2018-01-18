@@ -12,9 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 /**
@@ -23,10 +26,12 @@ import android.view.ViewGroup;
  * {@link NavDrawerFrag.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class NavDrawerFrag extends Fragment implements RecycleAdapt.ClickListener{
+public class NavDrawerFrag extends Fragment implements RecycleAdapt.ClickListener,  RecyclerView.OnItemTouchListener{
 
     public static final String PREF_FILE_NAME = "PrefStore";
     public static final String PREF_USERLEARNED_DRAWER_KEY = "UserLearnedDrawer";
+
+    GestureDetector mGestureDetector;
 
     private Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
@@ -75,10 +80,33 @@ public class NavDrawerFrag extends Fragment implements RecycleAdapt.ClickListene
     @Override
     public void onResume(){
         super.onResume();
-        mAdapter = new RecycleAdapt(getActivity());
-        mAdapter.setListener(this);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(mAdapter == null) {
+            mAdapter = new RecycleAdapt(getActivity());
+//        mAdapter.setListener(this);
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.addOnItemTouchListener(this);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+        if(mGestureDetector == null){
+            mGestureDetector = new GestureDetector(getActivity(),new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent event){
+                    if(mRecyclerView != null){
+                        View holder = mRecyclerView.findChildViewUnder(event.getX(),event.getY());
+                        int position = mRecyclerView.getChildLayoutPosition(holder);
+                        Toast.makeText(getActivity(),"clicked at position "+position,Toast.LENGTH_SHORT).show();
+                        itemClicked(holder,position);
+                    }
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent event){
+                    Toast.makeText(getActivity(),"long pressed ",Toast.LENGTH_SHORT).show();
+                }
+
+            });
+        }
     }
     @Override
     public void onDetach() {
@@ -155,4 +183,29 @@ public class NavDrawerFrag extends Fragment implements RecycleAdapt.ClickListene
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+//            if(e.getAction() == MotionEvent.ACTION_UP) {
+//                View holder = rv.findChildViewUnder(e.getX(), e.getY());
+//                int position = rv.getChildLayoutPosition(holder);
+//                Toast.makeText(getActivity(), "clicked at position " + position, Toast.LENGTH_SHORT).show();
+//                itemClicked(holder, position);
+//            }
+            if(mGestureDetector != null)
+                mGestureDetector.onTouchEvent(e);
+            return true;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+
 }
