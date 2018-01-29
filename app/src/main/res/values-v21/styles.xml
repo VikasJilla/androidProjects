@@ -9,6 +9,7 @@
     <style name="AppBarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:colorSecondary">#000000</item>
+        <item name="android:colorControlHighlight">@color/colorPrimaryDark</item>
 
     </style>
 </resources>

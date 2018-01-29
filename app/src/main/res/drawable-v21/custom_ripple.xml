@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A red ripple masked against an opaque rectangle. -->
+<!--<ripple  xmlns:android="http://schemas.android.com/apk/res/android" android:color="#ffff0000">
+<item android:id="@android:id/mask"
+   android:drawable="@android:color/white" />
+    <item android:drawable="@android:color/black" />
+</ripple>-->
+
+
+   <!-- &lt;!&ndash; A green ripple drawn atop a black rectangle. &ndash;&gt;
+     <ripple android:color="#ff00ff00" xmlns:android="http://schemas.android.com/apk/res/android">
+       <item android:drawable="@android:color/black" />
+     </ripple>-->
+<!-- A green ripple drawn atop a black rectangle. -->
+<ripple android:color="#ff0000ff" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_menu_camera" />
+    <item android:id="@android:id/mask"
+        android:drawable="@drawable/ic_menu_gallery" />
+</ripple>

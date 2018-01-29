@@ -84,7 +84,7 @@ public class NavDrawerFrag extends Fragment implements RecycleAdapt.ClickListene
             mAdapter = new RecycleAdapt(getActivity());
 //        mAdapter.setListener(this);
             mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.addOnItemTouchListener(this);
+//            mRecyclerView.addOnItemTouchListener(this);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
         if(mGestureDetector == null){
