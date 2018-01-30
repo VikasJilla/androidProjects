@@ -7,15 +7,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.vikasjilla.materialtest.MainActivity">
     <include
         android:id="@+id/toolBar"
         layout="@layout/app_bar"/>
+    <com.example.vikasjilla.materialtest.SlidingTabLayout
+        android:id="@+id/myTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-</RelativeLayout>
+</LinearLayout>
     <fragment
         android:id="@+id/fragment_nav_drawer_frag"
         android:layout_width="280dp"
