@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "980564185135",
+    "firebase_url": "https://projectstart-ffaba.firebaseio.com",
+    "project_id": "projectstart-ffaba",
+    "storage_bucket": "projectstart-ffaba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980564185135:android:5a91f7bda2345971",
+        "android_client_info": {
+          "package_name": "com.example.vikasjilla.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980564185135-rkdke6h2tn98npah56h55mh3veh5qpdg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2mGm17nL_fKmhIBw0s2IX8O2bbbPfLGc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
