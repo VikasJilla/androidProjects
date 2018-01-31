@@ -18,7 +18,8 @@
     <com.example.vikasjilla.materialtest.SlidingTabLayout
         android:id="@+id/myTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/myPager"
         android:layout_width="match_parent"
